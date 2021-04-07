@@ -10,17 +10,17 @@ from django.views.decorators.csrf import csrf_protect
 def register(request):
     return render(request, 'registration.html')
 def signin(request):
-    # firstname = request.POST['First_Name']
-    # lastname = request.POST['Last_Name']
-    # contact_1 = request.POST['Contact']
-    # email = request.POST['E-mail']
-    # city = request.POST['City']
-    # username = request.POST['Username']
-    # password = request.POST['Password']
-    # #user = User.objects.create_user(username = username, email = email, password= password, first_name = firstname, last_name = lastname )
-    # user = User(username = username, email = email, password= password, first_name = firstname, last_name = lastname )
-    # user.save()
-    # print("user created")
+    firstname = request.POST['First_Name']
+    lastname = request.POST['Last_Name']
+    contact_1 = request.POST['Contact']
+    email = request.POST['E-mail']
+    city = request.POST['City']
+    username = request.POST['Username']
+    password = request.POST['Password']
+    #user = User.objects.create_user(username = username, email = email, password= password, first_name = firstname, last_name = lastname )
+    user = User(username = username, email = email, password= password, first_name = firstname, last_name = lastname )
+    user.save()
+    print("user created")
     
     return render(request, 'login.html')
     pass
@@ -41,6 +41,8 @@ def login_db(request):
         username1 = (request.POST['username'])
         password1 = (request.POST['password'])
 
+        request.session['username'] = username1
+
         myquery ={"username" : username1, "password" :password1}
         user = col.find_one({'username' : username1, 'password' : password1})
         #print(username, password)
@@ -50,7 +52,7 @@ def login_db(request):
         #     print("Hello" ,x)
         if user is not None:
             #form = auth.login(request, user)
-            return render(request, 'index.html',{'name':username1, "flag":True})
+            return render(request, 'index.html',{'name':request.session['username'], "flag":True})
         else:
             HttpResponse("Log In failed.")
             return render(request, 'login.html',{'error':"Hello user you entered wrong credentials. Please try again!"})
@@ -86,7 +88,7 @@ def book_data(request):
     }
     x = (col.insert_one(doc))
     print(x.inserted_id)
-    return render(request, 'index.html')
+    return render(request, 'index.html',{'name':request.session['username']})
 
 def search(request):
     import pymongo
@@ -99,8 +101,12 @@ def search(request):
     genre = request.POST['book-genre']
     author = request.POST['author']
 
+    # if(title is None and author is None and genre is not None):
+    #     data = col.find({'genre':genre})
+    #     print(data)
 
-    list_of_books = []
+   
+
     # for i in col.find({},{"name":1,'_id':0,"author":1}):
     #     print(i)
     #     list_of_books.append(i['name'])
@@ -414,11 +420,11 @@ def search(request):
 #y = "A"
     bplustree = BplusTree(record_len)
 #bplustree.insert(x, y)
-    bplustree.insert('5', '33')
-    bplustree.insert('15', '21')
-    bplustree.insert('25', '31')
-    bplustree.insert('35', '41')
-    bplustree.insert('45', '10')
+    # bplustree.insert('5', '33')
+    # bplustree.insert('15', '21')
+    # bplustree.insert('25', '31')
+    # bplustree.insert('35', '41')
+    # bplustree.insert('45', '10')
 
     for i in col.find({},{"title":1,'_id':0,"author":1}):
         print(i)
@@ -426,6 +432,7 @@ def search(request):
         #print(i['title'], i['author'])
 
     
+    print("Hello after this line we are printing data from the bplus tree: ")
     printTree(bplustree)
     if(bplustree.find(title, author)):
         print("Found")
@@ -436,7 +443,7 @@ def search(request):
         author = data['author']
         rating = data['rating']
         url = data['url']
-        return render(request, 'index.html',{'title':title, 'genre':genre, 'author':author, 'rating':rating, 'url':url})
+        return render(request, 'index.html',{'name':request.session['username'],'title':title, 'genre':genre, 'author':author, 'rating':rating, 'url':url})
 
     else:
         print("Not Found")

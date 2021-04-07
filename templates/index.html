@@ -21,6 +21,12 @@
         padding: 50px;
         
     }
+    #display{
+      background-color: blanchedalmond;
+      border: 15px grey;
+      padding: 50px;
+      padding-left: 10px;
+    }
 </style>
 </head>
 <body>
@@ -152,29 +158,30 @@
         <div class="row row-cols-2">
             <div class="col">
         <label for="RegInfo">Title of Book:</label>
-        <input type="text" class="form-control" name="title" id="anime-name" placeholder="Title of Book" required/>
+        <input type="text" class="form-control" name="title" id="anime-name" placeholder="Title of Book" />
     </div>
         <div class="col">
         <label for="RegInfo">Genre of Book</label>
-        <input type="text" class="form-control" name="book-genre" id="anime-type" placeholder="Genre of Book" required/>
+        <input type="text" class="form-control" name="book-genre" id="anime-type" placeholder="Genre of Book" />
     </div>
     </div>
     <div class="row row-cols-2">
       <div class="col">
         <label for="RegInfo">Author of Book:</label>
-        <input type="text" class="form-control" name="author" id="anime-name" placeholder="Author of Book" required/>
+        <input type="text" class="form-control" name="author" id="anime-name" placeholder="Author of Book" />
       </div>
     </div>
     <br>
-<center><button type="submit" class="btn btn-primary" onclick = "diplay()" name="submit" id="submit">Submit</button></center>
+<center><button type="submit" class="btn btn-primary" onclick = "display()" name="submit" id="submit">Submit</button></center>
 </div>
 </form>
 </div>
-<div id="display" style="display:block;">
+<br><br>
 
-  <div class="card mb-3" style="width: 18rem;">
+<div id="display" class="container" style="display:block;">
+  <div class="card mb-3" style="width: 18rem; border-radius:5px solid ;">
     <img class="card-img-top" src='{{url}}' height="200" width="200" alt="Card image cap">
-    <div class="card-body">
+    <div class="card-body"> 
       <h5 class="card-title">{{title}}</h5>
       <h4><p class="card-text">{{description}}</p></h4>
       <h4><p class="card-text"><small class="text-muted"><p> Author: {{author}}</p>Genre: {{genre}}</small></p></h4>
@@ -205,7 +212,7 @@ function change1(){
     document.getElementById("mainFrameOne").style.display="none";
     document.getElementById('display').style.display = "none";
 }
-function diplay(){
+function display(){
   document.getElementById('display').style.display = "block";
 }
 </script>
