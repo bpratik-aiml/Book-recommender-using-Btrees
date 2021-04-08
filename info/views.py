@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.views.decorators.csrf import csrf_protect
+import json
 
 
 # Create your views here.
@@ -100,18 +101,21 @@ def search(request):
     title = request.POST['title']
     genre = request.POST['book-genre']
     author = request.POST['author']
+    print("**********************")
+    print (title, author,genre)
+    print("**********************")
+    if(title =="" and author =="" and genre !=""):
+        data = list(col.find({'genre':genre}))
+        for x in data:
+            print (x)
+        #data = list(data)
+        print("Data in list format: ",data)
 
-    # if(title is None and author is None and genre is not None):
-    #     data = col.find({'genre':genre})
-    #     print(data)
 
-   
+        #decoded_data = json.loads(str(data))
+        return render(request,"index.html",{'name':request.session['username'],'data': data})
 
-    # for i in col.find({},{"name":1,'_id':0,"author":1}):
-    #     print(i)
-    #     list_of_books.append(i['name'])
-    #     list_of_books.append(i['author'])
-    #     print()
+  
 # B+ tee in python
 # B+ tee in python
 

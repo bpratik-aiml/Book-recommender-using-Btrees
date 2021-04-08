@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
+
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <title>Choose one option</title>
@@ -19,7 +19,7 @@
         background-color: white;
         border: 15px grey;
         padding: 50px;
-        
+
     }
     #display{
       background-color: blanchedalmond;
@@ -56,7 +56,7 @@
             <p>Hello {{name}}</p>
         </h3>
       </nav>
-      
+
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -84,7 +84,7 @@
         </a>
       </div>
 <br><br>
-    
+
 <div class="container">
     <div class="row row-cols-2">
         <div class="col-2"></div>
@@ -121,7 +121,7 @@
     </div>
     </div>
     <br>
-    <div class="row row-cols-2"> 
+    <div class="row row-cols-2">
         <div class="col">
         <label for="RegInfo">URL of image:</label>
         <input type="text" class="form-control" name="book-url" id="anime-url" placeholder="url" required/>
@@ -181,14 +181,31 @@
 <div id="display" class="container" style="display:block;">
   <div class="card mb-3" style="width: 18rem; border-radius:5px solid ;">
     <img class="card-img-top" src='{{url}}' height="200" width="200" alt="Card image cap">
-    <div class="card-body"> 
+    <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <h4><p class="card-text">{{description}}</p></h4>
       <h4><p class="card-text"><small class="text-muted"><p> Author: {{author}}</p>Genre: {{genre}}</small></p></h4>
-      
+
       <h4><p class="card-text"><small class="text-muted">Rating: {{rating}}</small></p></h4>
     </div>
   </div>
+
+
+  <h2>Recommendation by genre</h2>
+  {% for x in data %}
+  <!-- <h1> Hello {{ x.title }}</h1> -->
+  <div class="card mb-3" style="width: 18rem; border-radius:5px solid ;">
+    <img class="card-img-top" src= '{{x.url}}' height="200" width="200" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{ x.title }}</h5>
+      <h4><p class="card-text">{{x.description}}</p></h4>
+      <h4><p class="card-text"><small class="text-muted"><p> Author: {{x.author}}</p>Genre: {{x.genre}}</small></p></h4>
+
+      <h4><p class="card-text"><small class="text-muted">Rating: {{x.rating}}</small></p></h4>
+    </div>
+  </div>
+  &nbsp;&nbsp;&nbsp;
+  {% endfor %}
 </div>
 <br><br><br><br>
 
@@ -203,9 +220,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script>
     function change(){
-        document.getElementById("mainFrameOne").style.display="block"; 
+        document.getElementById("mainFrameOne").style.display="block";
         document.getElementById("mainFrameTwo").style.display="none";
-        document.getElementById('display').style.display = "none"; 
+        document.getElementById('display').style.display = "none";
 }
 function change1(){
     document.getElementById("mainFrameTwo").style.display="block";
