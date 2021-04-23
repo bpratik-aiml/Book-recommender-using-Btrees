@@ -49,10 +49,7 @@ def login_db(request):
         #print(username, password)
         # user = authenticate(request, username = username1, password = password1)
         print (user)
-        # for x in user:
-        #     print("Hello" ,x)
         if user is not None:
-            #form = auth.login(request, user)
             return render(request, 'index.html',{'name':request.session['username'], "flag":True})
         else:
             HttpResponse("Log In failed.")
@@ -61,11 +58,9 @@ def login_db(request):
 
 
     return HttpResponse("Inserted")
-    #return render(request, '')
 
-#@csrf_protect
+
 def book_data(request):
-    #csrfContext = RequestContext(request)
     import pymongo
     client = pymongo.MongoClient("mongodb://localhost:27017/")
 
@@ -108,7 +103,6 @@ def search(request):
         data = list(col.find({'genre':genre}))
         for x in data:
             print (x)
-        #data = list(data)
         print("Data in list format: ",data)
 
 
@@ -116,7 +110,6 @@ def search(request):
         return render(request,"index.html",{'name':request.session['username'],'data': data})
 
   
-# B+ tee in python
 # B+ tee in python
 
 
@@ -420,21 +413,12 @@ def search(request):
 
 
     record_len = 3
-#x = list_of_books[1]
-#y = "A"
+
     bplustree = BplusTree(record_len)
-#bplustree.insert(x, y)
-    # bplustree.insert('5', '33')
-    # bplustree.insert('15', '21')
-    # bplustree.insert('25', '31')
-    # bplustree.insert('35', '41')
-    # bplustree.insert('45', '10')
 
     for i in col.find({},{"title":1,'_id':0,"author":1}):
         print(i)
         bplustree.insert(i['title'], i['author'])
-        #print(i['title'], i['author'])
-
     
     print("Hello after this line we are printing data from the bplus tree: ")
     printTree(bplustree)
@@ -450,14 +434,7 @@ def search(request):
         return render(request, 'index.html',{'name':request.session['username'],'title':title, 'genre':genre, 'author':author, 'rating':rating, 'url':url})
 
     else:
+        message ="You have entered wrong details."
         print("Not Found")
+        return render (request,'index.html', {'name':request.session['username'], 'message': message})
     
-    
-    # if(bplustree.find(x, "A")):
-    #     print("Found")
-    # else:
-    #     print("Not found")
-
-
-
-   # return render(request, 'index.html')

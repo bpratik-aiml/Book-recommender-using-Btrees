@@ -38,19 +38,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item active">
-              <!-- <a class="nav-link" href="#"><span class="sr-only">(current)</span></a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link" href="#"></a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link" href="#"></a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a> -->
-            </li>
+            <li class="nav-item active"></li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
           </ul>
+          <h3 style="color: red;">{{message}}</h3>
         </div>
         <h3><p>Welcome to the Book Recommender System</p>
             <p>Hello {{name}}</p>
@@ -98,13 +91,6 @@
 </div>
 
 
-<!-- {% if flag == True %}
-<p>Hello value of flag is true </p>
-{% else %}
-<p>Value of flag is False</p>
-{% endif %} -->
-
-
 <!--Enter book details-->
 <div id="mainFrameOne" style="display:none">
     <form class="was-validated" action= 'book_data' method="POST">
@@ -128,20 +114,17 @@
     </div>
     <div class="col">
         <label for="RegInfo">Description of Book:</label>
-        <!-- <input type="text" style="height:200px;" class="form-control" name="anime-description" id="anime-description" placeholder="Enter a short summary of Anime" required/> -->
         <textarea rows="4" cols="40" class="form-control" name="book-description" id="anime-description" placeholder="Enter a short summary of Book" required></textarea>
     </div>
     </div>
     <div class="row row-cols-2">
         <div class="col">
             <label for="RegInfo">Name of the author</label>
-            <!-- <input type="text" style="height:200px;" class="form-control" name="anime-description" id="anime-description" placeholder="Enter a short summary of Anime" required/> -->
-            <input type="text" class="form-control" name="author_name" id="anime-url" placeholder="Name of Author" required/>
+              <input type="text" class="form-control" name="author_name" id="anime-url" placeholder="Name of Author" required/>
         </div>
         <div class="col">
           <label for="RegInfo">Rating of Book</label>
-          <!-- <input type="text" style="height:200px;" class="form-control" name="anime-description" id="anime-description" placeholder="Enter a short summary of Anime" required/> -->
-          <input type="text" class="form-control" name="rating" id="anime-url" placeholder="Enter rating of Book" required/>
+         <input type="text" class="form-control" name="rating" id="anime-url" placeholder="Enter rating of Book" required/>
       </div>
     </div>
     <br>
@@ -192,9 +175,11 @@
 
 
   <h2>Recommendation by genre</h2>
+  <div class="containter">
+    <div class="row">
   {% for x in data %}
-  <!-- <h1> Hello {{ x.title }}</h1> -->
-  <div class="card mb-3" style="width: 18rem; border-radius:5px solid ;">
+  <div class="col">
+   <div class="card mb-3" style="width: 18rem; border-radius:5px solid ;">
     <img class="card-img-top" src= '{{x.url}}' height="200" width="200" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">{{ x.title }}</h5>
@@ -204,8 +189,11 @@
       <h4><p class="card-text"><small class="text-muted">Rating: {{x.rating}}</small></p></h4>
     </div>
   </div>
+</div>
   &nbsp;&nbsp;&nbsp;
   {% endfor %}
+</div>
+</div>
 </div>
 <br><br><br><br>
 
